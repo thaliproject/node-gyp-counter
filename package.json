@@ -1,0 +1,36 @@
+{
+  "name": "node-gyp-counter",
+  "version": "0.0.0",
+  "description": "Collects statistics on node-gyp usage from NPM",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/thaliproject/node-gyp-counter.git"
+  },
+  "keywords": [
+    "node-gyp",
+    "statistics",
+    "usage"
+  ],
+  "author": "Yaron Y. Goland",
+  "license": "Apache 2.0",
+  "bugs": {
+    "url": "https://github.com/thaliproject/node-gyp-counter/issues"
+  },
+  "homepage": "https://github.com/thaliproject/node-gyp-counter",
+  "dependencies": {
+    "immutable": "^3.4.1",
+    "pouchdb": "^3.2.0",
+    "debug": "^2.1.1",
+    "bluebird": "^2.5.3"
+  },
+  "devDependencies": {
+    "jshint": "^2.5.10",
+    "mocha": "^2.1.0",
+    "chai": "^1.10.0",
+    "chai-as-promised": "^4.1.1"
+  },
+  "scripts": {
+    "test": "jshint -c .jshintrc index.js /lib /tests"
+  }
+}
