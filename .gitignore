@@ -31,3 +31,5 @@ node_modules
 
 # This is for testing, I really should move it
 localNpmDBName/
+localNpmDBName-mrview-*/
+npmStatCache/

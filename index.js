@@ -6,22 +6,42 @@ var npmLatestIndex = require("./lib/npmLatestIndex");
 var describeGypUsage = require("./lib/describeGypUsage");
 var promise = require("bluebird");
 
-var downloadGenerateIndexAndAnalyze = function (localNpmDBName, remoteDbUrl) {
-  var localDb = new PouchDB(localNpmDBName);
-  return new promise(function(resolve, reject) {
-    npmUtilities.syncNpm(
-      remoteDbUrl ? remoteDbUrl : npmUtilities.irisCouchDbUrl,
-      localDb).on('complete', function() {
-        npmLatestIndex.designDoc(localDb)
-        .then(function() {
-          return describeGypUsage.describeGypUsage(localDb);
-        }).then(function() {
-          return resolve(true);
+var downloadGenerateIndexAndAnalyze =
+  function (localNpmDBName, npmDownloadStatDBName, remoteDbUrl) {
+    var localDb = new PouchDB(localNpmDBName);
+    return new promise(function(resolve, reject) {
+      var lastTime = new Date().getTime();
+      npmUtilities.syncNpm(
+        remoteDbUrl ? remoteDbUrl : npmUtilities.irisCouchDbUrl,
+        localDb)
+        .on("change", function(info) {
+          var newTime = new Date().getTime();
+          console.log(newTime - lastTime +
+                      " - Still working - " + JSON.stringify(info));
+          lastTime = newTime;
+        })
+        .on('complete', function() {
+          npmLatestIndex.designDoc(localDb)
+          .then(function() {
+            return describeGypUsage.gypUsageData(localDb, npmDownloadStatDBName);
+          }).then(function(gypUsageDataObject) {
+            return resolve(gypUsageDataObject);
+          });
+        }).on('error', function(err) {
+          return reject(err);
         });
-      }).on('error', function(err) {
-        return reject(err);
-      });
-  });
+    });
 };
 
 exports.downloadGenerateIndexAndAnalyze = downloadGenerateIndexAndAnalyze;
+
+var downloadAndDisplayData =
+  function (localNpmDBName, npmDownloadStatDBName, remoteDbUrl) {
+    return downloadGenerateIndexAndAnalyze(localNpmDBName, npmDownloadStatDBName, remoteDbUrl)
+      .then(function(gypUsageDataObject) {
+        describeGypUsage.displayGypUsageData(gypUsageDataObject);
+        return true;
+      });
+};
+
+exports.downloadAndDisplayData = downloadAndDisplayData;
