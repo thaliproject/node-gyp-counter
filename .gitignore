@@ -26,3 +26,10 @@ node_modules
 
 # Users Environment Variables
 .lock-wscript
+
+.idea
+
+# This is for testing, I really should move it
+localNpmDBName/
+localNpmDBName-mrview-*/
+npmStatCache/
