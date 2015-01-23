@@ -1,6 +1,6 @@
 {
   "name": "node-gyp-counter",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "Collects statistics on node-gyp usage from NPM",
   "main": "index.js",
   "repository": {
