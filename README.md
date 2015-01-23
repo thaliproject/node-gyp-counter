@@ -17,9 +17,10 @@ Although generally one suspects package.json is preferable.
 Take a look at tests/tests.js for an example. There are really just two key functions and they are in index.js.
 
 ```javascript
-var nodeGypCounter = require('node-gyp-counter');
-var npmUtilities = require("../lib/npmUtilities");
-downloadAndDisplayData("localNpmDBName", "npmStatCache", npmUtilities.skimDbUrl));
+var nodeGypCounter = require("node-gyp-counter");
+var npmUtilities = require("node-gyp-counter/lib/npmUtilities");
+
+nodeGypCounter.downloadAndDisplayData("localNpmDBName", "npmStatCache", npmUtilities.skimDbUrl);
 ```
 
 This will output to the console a few statistics about node-gyp usage in NPM. You can also call
@@ -47,7 +48,7 @@ that hasn't had a recent release and so doesn't have a lot of updates could easi
 with broken dependencies for no good reason at all (presumably their downloads are low since they shouldn't work). Etc.
 
 ### How long should it take to download all the data?
-A long, long time. PouchDB seems pretty glacial. It takes me up to two hours just to download
+A long, long time. PouchDB seems pretty glacial. It took me 54 minutes to download
 the NPM package database. By comparison CouchDB synch'd the same data in 20 minutes. I hope to eventually track down
 and fix these problems (I have suspicions about what the problem is) but in the meantime, patience is a virtue.
 
