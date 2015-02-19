@@ -1,6 +1,6 @@
 {
   "name": "node-gyp-counter",
-  "version": "0.0.1",
+  "version": "0.0.3",
   "description": "Collects statistics on node-gyp usage from NPM",
   "main": "index.js",
   "repository": {
@@ -33,6 +33,6 @@
     "chai-as-promised": "^4.1.1"
   },
   "scripts": {
-    "test": "jshint -c .jshintrc index.js /lib /tests"
+    "test": "jshint -c .jshintrc index.js lib tests && mocha tests/tests.js "
   }
 }
