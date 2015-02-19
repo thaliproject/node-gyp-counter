@@ -18,6 +18,8 @@ var downloadGenerateIndexAndAnalyze =
       )
         .on("change", function (info) {
           var newTime = new Date().getTime();
+          // info.docs contains a ton of data and so spams the console
+          delete info.docs;
           console.log(newTime - lastTime +
                       " - Still working - " + JSON.stringify(info));
           lastTime = newTime;
